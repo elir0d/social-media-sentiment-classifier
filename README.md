@@ -1,7 +1,6 @@
-# ternary-sentiment-classifier
+            # ternary-sentiment-classifier
 
-The goal of this project is to apply machine learning models on social media media posts, focusing on classifying feelings and mapping polarities to aid in decision making.
-
+The goal of this project is to apply machine learning models on social media media posts, focusing on classifying sentiments and mapping polarities to aid in decision making.
 ## Instructions
 
 1. Clone the repo.
