@@ -1,5 +1,0 @@
-dvc
-joblib
-notebook
-pandas
-scikit-learn
