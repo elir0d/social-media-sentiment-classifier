@@ -23,7 +23,7 @@ To clone using an SSH key, click on SSH and copy the URL.
 ```
 For example:
 ```bash
-   [git clone https://github.com/elir0d/sentiment-classifier.git
+   git clone https://github.com/elir0d/sentiment-classifier.git
 ```
 7. Press ENTER to create the local clone.
 ### Creating a Conda Environment from a YAML File
