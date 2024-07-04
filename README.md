@@ -5,7 +5,7 @@ The goal of this project is to apply machine learning models on social media med
 
 ### Requiriments
 - ```Conda 24.3.0```   
-- ```Python 3.1.7```
+- ```Python 3.11.7```
 
 ### Cloning a GitHub Repository
 
