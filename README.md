@@ -1,27 +1,62 @@
-            # ternary-sentiment-classifier
+# Sentiment-Classifier
 
-The goal of this project is to apply machine learning models on social media media posts, focusing on classifying sentiments and mapping polarities to aid in decision making.
+The goal of this project is to apply machine learning models on social media media posts, focusing on classifying sentiments and mapping polarities to support decision making.
 ## Instructions
 
-1. Clone the repo.
-2. (Recommended) Create and activate a [virtualenv](https://virtualenv.pypa.io/) under the `env/` directory. Git is already configured to ignore it.
-3. Install the very minimal requirements using `pip install -r requirements.txt`
-4. Run [Jupyter](https://jupyter.org/) in whatever way works for you. The simplest would be to run `pip install jupyter && jupyter notebook`.
-5. All relevant code and instructions are in [`Example.ipynb`](/Example.ipynb).
+### Requiriments
+- ```Conda 24.3.0```   
+- ```Python 3.1.7```
 
-## Explanation
+### Cloning a GitHub Repository
+
+1. On GitHub.com, navigate to the main page of the repository
+
+2. Above the list of files, click on Code
+3. Copy the repository URL:
+To clone using HTTPS, click on HTTPS and copy the URL.
+To clone using an SSH key, click on SSH and copy the URL.
+4. Open the Terminal or Git Bash on your computer.
+5. Change the current working directory to where you want the cloned directory to be located.
+6. Type the following command and paste the copied URL:    
+```bash
+   git clone <REPOSITORY_URL>
+```
+For example:
+```bash
+   git clone https://github.com/your-username/your-repository.git
+```
+7. Press ENTER to create the local clone.
+### Creating a Conda Environment from a YAML File
+
+1. After cloning the repository, navigate to the directory where the repository was cloned.
+2. Inside that directory, you should find a YAML file named environment.yml.
+3. Execute the following command to create the Conda environment based on the YAML file:
+```bash
+conda env create -f environment.yml
+```
+This will create an environment with the specified dependencies from the YAML file.
+Now you have the cloned repository and the Conda environment set up! 🚀 Remember to activate the environment before using it:
+- To activate the environment:
+```bash
+conda activate environment-name
+```
+- To deactivate the environment:
+```bash
+conda deactivate
+```
+
+## DVC Explanation
+
+**NOTE**: if you won't use DVC, skip this instructions.
 
 This project structure is as an example of how to work with DVC from inside a Jupyter Notebook.
 
 This workflow should enable you to enjoy the full benefits of working with Jupyter Notebooks, while getting most of the benefit out of DVC - 
 namely, **reproducible and versioned data science**.
 
-The project takes a toy problem as an example - the [California housing dataset](https://scikit-learn.org/stable/datasets/index.html#california-housing-dataset), which comes packaged with scikit-learn.
-You can just replace the relevant parts in the notebook with your own data and code.
-Significantly different project structures might require deeper intervention.  
 
 The idea is to leverage DVC in order to create immutable snapshots of your data and models as part of your git commits.
-To enable this, we created the following DVC stages:
+To enable this, you can created the following DVC stages:
 1. **Raw data** - kept in `data/raw/`, versioned in `data/raw.dvc` 
 2. **Processed data** - kept in `data/processed/`, versioned in `process_data.dvc` 
 3. **Trained models** - kept in `models/`, versioned in `models.dvc` 
@@ -43,8 +78,24 @@ So, to summarize, this workflow should enable you to create a git commit which c
 
 It's intended as a guideline - definitely feel free to play around with its structure to suit your own needs.
 
+## Project Structure
+```
+├── assets.                      <- All projects assets like images, logos, etc...
+|
+├── data                         <- The original, immutable data dump
+|
+├── metrics                      <- Relevant metrics after evaluating the model
+|
+├── utils                        <- This folder serves as a toolbox containing essential tools and helperfunctions 
+|                                   specifically designed to automate various machine learning processes. 
+|                                   These methods can be reused across different parts of your project.
+|
+├── envirioment.yml              <- The requirements file for reproducing the analysis environment, e.g.
+│                                   generated with `conda env export  > envirioment.yml`
+│
+├── LICENSE                      <- The project license
+├── README.md                    <- The top-level README for developers using this project.
+├── Example.ipynb                <- A prototype project notebook that explain how to use DVC
+├── Sentiment-Classifier.ipynb   <- The main project notebook
+```
 ---
-
-To create a project like this, just go to https://dagshub.com/repo/create and select the **Jupyter Notebook + DVC** project template.
-
-Made with 🐶 by [DAGsHub](https://dagshub.com/).
