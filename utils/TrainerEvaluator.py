@@ -217,21 +217,50 @@ def cross_validate_multiple_models(train_data, classifiers, grid_params, thresho
     return metrics_df
 
 def plot_roc_curve(train_data, classifiers, hyper_params):
-    # Defina seus modelos
+    """
+    Plots the ROC curve for multiple models with given training data.
+
+    Parameters:
+    -----------
+    train_data : tuple
+        A tuple containing the input data (X) and labels (y).
+    classifiers : dict
+        A dictionary where the keys are the model names and the values are the classifier instances.
+    hyper_params : dict
+        A dictionary where the keys are the model names and the values are the hyperparameters to calibrate each model.
+
+    Procedure:
+    -------------
+    1. Define the models to be used.
+    2. Replace labels 'positivo' with 1 and 'negativo' with 0.
+    3. For each model:
+        a. Obtain and adjust the hyperparameters, if provided.
+        b. Calibrate the model using CalibratedClassifierCV.
+        c. Use cross_val_predict to obtain prediction probabilities.
+        d. Calculate the ROC curve.
+        e. Calculate the area under the curve (AUC).
+        f. Plot the ROC curve.
+    4. Add details to the chart, including the chance line.
+
+    Notes:
+    ------
+    Assumes the positive class is 1.
+    """
+    # Define your models
     models = classifiers
     X, y = train_data
     y = y.replace({'positivo':1, 'negativo':0})
     params = hyper_params
-    # Para cada modelo
+    # For each model
     for model_name, model in models.items():
-        # Calibre o modelo
+        # Calibrate the model
         params = model.get_params()
         if bool(hyper_params):
             params = hyper_params[model_name]
             model.set_params(**params)
         calibrated_model = CalibratedClassifierCV(model, cv=10)
         
-        # Use cross_val_predict para obter as probabilidades de previsão
+        # Use cross_val_predict to obtain prediction probabilities
         y_scores = cross_val_predict(calibrated_model, X, y, cv=10, method='predict_proba')
 
         name = {
@@ -242,17 +271,17 @@ def plot_roc_curve(train_data, classifiers, hyper_params):
         }
         
         
-        # Calcule a curva ROC
-        fpr, tpr, thresholds = roc_curve(y, y_scores[:, 1])  # Supondo que a classe positiva é 1
+        # Calculate the ROC curve
+        fpr, tpr, thresholds = roc_curve(y, y_scores[:, 1])  # Assuming the positive class is 1
         
-        # Calcule a AUC (área sob a curva)
+        # Calculate  the a AUC (área under curve)
         roc_auc = auc(fpr, tpr)
         
-        # Plote a curva ROC
+        # Plot ROC Curve
         plt.plot(fpr, tpr, label='%s (AUC = %0.2f)' % (name[model_name], roc_auc))
 
-    # Adicione detalhes ao gráfico
-    plt.plot([0, 1], [0, 1], 'k--')  # Linha de chance
+    # Add details to the chart
+    plt.plot([0, 1], [0, 1], 'k--')  # Odds line
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('Taxa de Falsos Positivos')
